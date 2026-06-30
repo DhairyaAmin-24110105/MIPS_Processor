@@ -8,13 +8,16 @@ module Data_Memory (
     reg [15:0] memory [0:255];
     
     integer i;
-    initial begin
-        for (i = 0; i < 256; i = i + 1) begin
+    initial 
+    begin
+        for (i = 0; i < 256; i = i + 1) 
+        begin
             memory[i] = 16'd0;
         end
     end
 
-    always @(posedge clk) begin
+    always @(posedge clk) 
+    begin
         if (mem_write) memory[address[7:0]] <= write_data;
     end
     
