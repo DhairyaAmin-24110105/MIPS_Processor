@@ -1,0 +1,69 @@
+// ==========================================
+// TEST 1: Test for Zero and NaR
+// ==========================================
+6040    // Load at Reset (This instruction is ignored)
+6040    // Load R1 with 0000 (0.0)
+60a0    // Load R2 with 8000 (NaR)
+029a    // ADD R3, R1, R2
+02a0    // SUB R4, R1, R2
+02ab    // MUL R5, R1, R2
+02b1    // DIV R6, R1, R2
+
+// ==========================================
+// TEST 2: Math Operations using extreme large and extreme small values
+// ==========================================
+605f    // Load R1 with 7c00 (256)
+6081    // Load R2 with 0400 (1/256)
+029a    // ADD R3, R1, R2
+02a0    // SUB R4, R1, R2
+02ab    // MUL R5, R1, R2
+02b1    // DIV R6, R1, R2
+
+// ==========================================
+// TEST 3: Test for signed values
+// ==========================================
+6050    // Load R1 with 4000 (1.0)
+60b0    // Load R2 with c000 (-1.0)
+029a    // ADD R3, R1, R2
+02a0    // SUB R4, R1, R2
+02ab    // MUL R5, R1, R2
+02b1    // DIV R6, R1, R2
+
+// ==========================================
+// TEST 4: Test for bitwise shifts
+// ==========================================
+6041    // Load R1 with 0400 (1/256)
+029c    // SLL R3, R1, 2
+02a5    // SRL R4, R1, 2
+
+// ==========================================
+// TEST 5: Branch and Memory Instructions
+// ==========================================
+6050    // Load R1 with 4000 (1.0)
+6090    // Load R2 with 4000 (1.0)
+4282    // BEQ R1, R2, Offset=+2
+60e0    // [TRAP] Should get skipped
+60e0    // [TRAP] Should get skipped
+3040    // SW R0, R1, Offset=0
+21c0    // LW R0, R7, Offset=0
+607f    // Load R1 with fc00 (-1/256)
+026b    // MUL R5, R1, R1 
+
+// ==========================================
+// TEST 6: Additional Math & Shifts
+// ==========================================
+605f    // Load R1 with 7c00 (256)
+60b5    // Load R2 with d400 (-0.4375)
+029a    // ADD R3, R1, R2  (Positive + Negative)
+02ab    // MUL R5, R1, R2  (Positive * Negative)
+02b1    // DIV R6, R1, R2  (Positive / Negative)
+6041    // Load R1 with 0400 (1/256)
+029c    // SLL R3, R1, 2   (Shift left 1/256)
+02a5    // SRL R4, R1, 2   (Shift right 1/256)
+60a0    // Load R2 with 8000 (NaR)
+02ab    // MUL R5, R1, R2  (1/256 * NaR)
+
+// ==========================================
+// END OF SIMULATION
+// ==========================================
+f000    // HALT
